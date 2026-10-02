@@ -9,7 +9,7 @@ extends CharacterBody2D
 ## terrain stops it but the player and other enemies don't.
 
 ## Seconds before it disappears on its own.
-@export var lifetime := 6.0
+@export var lifetime := 10.0
 ## How fast the sprite spins (turns per second). Purely for looks: only the
 ## Sprite2D rotates, so the round collision shape is unaffected.
 @export var spin_speed := 2.0

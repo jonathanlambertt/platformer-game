@@ -17,7 +17,7 @@ extends CharacterBody2D
 ## It finds the player through the "player" group, which the root node of
 ## player.tscn belongs to.
 
-const PROJECTILE := preload("res://scenes/projectile.tscn")
+const PROJECTILE := preload("res://enemies/projectile.tscn")
 ## The tint it flashes while winding up a shot.
 const WINDUP_COLOR := Color(1.0, 0.45, 0.45)
 

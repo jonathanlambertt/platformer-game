@@ -1,12 +1,12 @@
 [gd_scene format=4 uid="uid://njm5amkedjnv"]
 
-[ext_resource type="PackedScene" uid="uid://tk70l1v6ewfj" path="res://scenes/tile_map_layer.tscn" id="1_vfa6b"]
+[ext_resource type="PackedScene" uid="uid://tk70l1v6ewfj" path="res://levels/tile_map_layer.tscn" id="1_vfa6b"]
 [ext_resource type="Texture2D" uid="uid://bh56mflk72vtg" path="res://assets/tilemap.png" id="2_smnfn"]
-[ext_resource type="PackedScene" uid="uid://dve8hfghfvdfr" path="res://scenes/player.tscn" id="4_nu7sl"]
-[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="5_enemy"]
-[ext_resource type="PackedScene" path="res://scenes/jumper.tscn" id="6_jumper"]
-[ext_resource type="PackedScene" uid="uid://8lgk2p0pajis" path="res://scenes/door.tscn" id="7_door"]
-[ext_resource type="PackedScene" path="res://scenes/shooter.tscn" id="8_shooter"]
+[ext_resource type="PackedScene" uid="uid://dve8hfghfvdfr" path="res://player/player.tscn" id="4_nu7sl"]
+[ext_resource type="PackedScene" path="res://enemies/enemy.tscn" id="5_enemy"]
+[ext_resource type="PackedScene" path="res://enemies/jumper.tscn" id="6_jumper"]
+[ext_resource type="PackedScene" uid="uid://8lgk2p0pajis" path="res://door/door.tscn" id="7_door"]
+[ext_resource type="PackedScene" path="res://enemies/shooter.tscn" id="8_shooter"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_omks2"]
 texture = ExtResource("2_smnfn")
@@ -193,6 +193,7 @@ tile_set = SubResource("TileSet_wwd78")
 
 [node name="Door" parent="." unique_id=457526541 instance=ExtResource("7_door")]
 position = Vector2(1800, 200)
+next_scene = "res://levels/level_3.tscn"
 
 [node name="CharacterBody2D" parent="." unique_id=1303348562 instance=ExtResource("4_nu7sl")]
 position = Vector2(196, 204)
