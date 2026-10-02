@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_projectile"]
+[ext_resource type="Texture2D" uid="uid://bh56mflk72vtg" path="res://assets/tilemap.png" id="2_tiles"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_projectile"]
+radius = 2.0
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_projectile")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tiles")
+region_enabled = true
+region_rect = Rect2(48, 56, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_projectile")

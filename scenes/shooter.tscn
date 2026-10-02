@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/shooter.gd" id="1_shooter"]
+[ext_resource type="Texture2D" uid="uid://bh56mflk72vtg" path="res://assets/tilemap.png" id="2_tiles"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shooter"]
+size = Vector2(6, 6)
+
+[node name="Shooter" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_shooter")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tiles")
+region_enabled = true
+region_rect = Rect2(32, 56, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_shooter")
