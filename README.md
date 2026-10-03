@@ -5,6 +5,8 @@ A small 2D pixel-art platformer built with Godot 4.7 (GDScript). It is a testbed
 Open the project in the Godot 4.7 editor and press Play. The game starts on Level 0 (the main scene). The levels are chained by their doors: Level 0 → 1 → 2 → 3, and Level 3 is the last. Run any level's scene directly to start there.
 
 Move with the arrow keys / WASD / D-pad / left stick, jump with Space / W / Up / A (Cross), and open a door by standing in front of it and pressing E / X (Square). A small prompt above the door shows the button while you are close enough. Opening a door brings up a "Thanks for playing!" popup with **Restart** (this level), **Continue** (the next level) and **Quit**; the last level's door has no Continue, and its Restart goes back to Level 0. Pick one with the mouse, or with left / right and Enter / Space / A (Cross).
+
+Press Escape / Start at any time to pause. The pause screen has **Restart** (this level) and **Quit**; press Escape / Start again to carry on.
 ## Level 0
 
 `levels/level_0.tscn` (215×61 tiles) is the first level and the project's main scene. It starts in a cave, drops to a deeper cavern, climbs out into the open air and ends on a hillside. Rock closes it in at both ends and underneath; only the outdoor part has sky. Each section exercises one part of the jump:

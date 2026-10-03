@@ -1,0 +1,184 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://pause/pause_menu.gd" id="1_pause"]
+[ext_resource type="Texture2D" uid="uid://6fyhtakjnxv3" path="res://door/ui.png" id="2_ui"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_panel"]
+content_margin_left = 6.0
+content_margin_top = 5.0
+content_margin_right = 6.0
+content_margin_bottom = 5.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(0, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_focus"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(8, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_restart"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(16, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_restart_hover"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(24, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_restart_pressed"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(32, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_quit"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(40, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_quit_hover"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(48, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_quit_pressed"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+texture = ExtResource("2_ui")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(56, 0, 8, 8)
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_pause")
+
+[node name="Popup" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Popup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.14, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="Popup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Popup/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Popup/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.94509804, 0.9098039, 1)
+theme_override_font_sizes/font_size = 9
+text = "Game Paused"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Popup/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+theme_override_colors/font_hover_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+theme_override_colors/font_pressed_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+theme_override_colors/font_focus_color = Color(0.11372549, 0.16862746, 0.3254902, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_restart")
+theme_override_styles/hover = SubResource("StyleBoxTexture_restart_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_restart_pressed")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_restart_pressed")
+theme_override_styles/focus = SubResource("StyleBoxTexture_focus")
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.94509804, 0.9098039, 1)
+theme_override_colors/font_hover_color = Color(1, 0.94509804, 0.9098039, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.94509804, 0.9098039, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.94509804, 0.9098039, 1)
+theme_override_colors/font_focus_color = Color(1, 0.94509804, 0.9098039, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_quit")
+theme_override_styles/hover = SubResource("StyleBoxTexture_quit_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_quit_pressed")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_quit_pressed")
+theme_override_styles/focus = SubResource("StyleBoxTexture_focus")
+text = "Quit"
