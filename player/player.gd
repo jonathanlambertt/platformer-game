@@ -94,6 +94,8 @@ var coyote_timer := 0.0       # Counts down after leaving the ground.
 var jump_buffer_timer := 0.0  # Counts down after pressing jump.
 var is_jumping := false       # True from the jump until landing. Lets us tell
 							  # "jumped" apart from "walked off a ledge".
+var is_bouncing := false      # True from a bounce pad launch until the top of
+							  # the bounce. See check_bounce_pad().
 
 var is_dead := false          # Set on death so we only restart once.
 
@@ -113,6 +115,8 @@ func _physics_process(delta: float) -> void:
 	# The order matters: read input -> change velocity -> move -> animate.
 	var input_dir := Input.get_axis("move_left", "move_right")
 
+	# Before update_timers(), which forgets whether we were jumping on landing.
+	check_bounce_pad()
 	update_timers(delta)
 	apply_gravity(delta)
 	handle_jump()
@@ -130,7 +134,13 @@ func _physics_process(delta: float) -> void:
 # TIMERS
 # ---------------------------------------------------------------------------
 func update_timers(delta: float) -> void:
-	if is_on_floor():
+	# A bounce ends at its peak; from there on we fall like any other jump.
+	if is_bouncing and velocity.y >= 0.0:
+		is_bouncing = false
+
+	# On the frame of a bounce we still count as on the floor (until
+	# move_and_slide() runs), so don't let that refill coyote time.
+	if is_on_floor() and not is_bouncing:
 		# Standing on the ground: refill coyote time and clear the jump flag.
 		coyote_timer = coyote_time
 		is_jumping = false
@@ -153,9 +163,12 @@ func apply_gravity(delta: float) -> void:
 
 	# Rising and still holding jump -> light gravity (go high).
 	# Otherwise (falling, or let go of jump) -> heavy gravity (come down fast).
+	# A bounce always rises on light gravity, so its height doesn't depend on
+	# whether jump is held.
 	var rising := velocity.y < 0.0
 	var holding_jump := Input.is_action_pressed("jump")
-	var gravity := get_jump_gravity() if (rising and holding_jump) else get_fall_gravity()
+	var light := rising and (holding_jump or is_bouncing)
+	var gravity := get_jump_gravity() if light else get_fall_gravity()
 
 	# Apex hang: while holding jump near the top of the arc, soften gravity.
 	if holding_jump and is_jumping and absf(velocity.y) < apex_threshold:
@@ -209,6 +222,48 @@ func handle_jump() -> void:
 	# Bonk: if we hit a ceiling while going up, stop rising immediately.
 	if is_on_ceiling() and velocity.y < 0.0:
 		velocity.y = 0.0
+
+
+# ---------------------------------------------------------------------------
+# BOUNCE PADS
+# ---------------------------------------------------------------------------
+# Standing on a bounce pad (bounce_pad/bounce_pad.tscn) launches you straight
+# away. Arriving in a jump - or pressing jump just before landing, which the
+# jump buffer remembers - gives the pad's big bounce; walking or falling onto
+# it gives the small one. Landing back on the pad after a bounce counts as
+# falling, so you keep doing small bounces until you jump again.
+#
+# A bounce is a fixed height: it rises on jump gravity whether or not jump is
+# held, letting go doesn't cut it short, and there's no apex hang.
+func check_bounce_pad() -> void:
+	if not is_on_floor():
+		return
+	# Standing across two pads side by side squashes both; the first one found
+	# sets the height.
+	var pads := get_tree().get_nodes_in_group("bounce_pad").filter(
+			func(pad: BouncePad) -> bool: return pad.is_under(self))
+	if pads.is_empty():
+		return
+
+	var jumped := is_jumping or jump_buffer_timer > 0.0 \
+			or Input.is_action_just_pressed("jump")
+	var height: float = pads[0].big_bounce_height if jumped else pads[0].small_bounce_height
+	# speed = sqrt(2 * gravity * height) assumes smooth motion, but the game
+	# moves in physics steps, which overshoots by about speed * step / 2.
+	# Solving height = speed² / (2 * gravity) + speed * step / 2 instead
+	# makes the bounce peak at the pad's height (to within a fraction of a
+	# pixel), so pad heights can be set in exact tiles.
+	var gravity := get_jump_gravity()
+	var half_step := gravity * get_physics_process_delta_time() / 2.0
+	velocity.y = -(sqrt(half_step * half_step + 2.0 * gravity * height) - half_step)
+	is_bouncing = true
+	# Not a jump, so no jump cut or apex hang; and use up the coyote time
+	# and any buffered press so a jump can't replace the bounce.
+	is_jumping = false
+	coyote_timer = 0.0
+	jump_buffer_timer = 0.0
+	for pad: BouncePad in pads:
+		pad.squash()
 
 
 # ---------------------------------------------------------------------------

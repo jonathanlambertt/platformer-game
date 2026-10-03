@@ -91,6 +91,27 @@ A shooter is a dark square with red eyes. When the player is within 12 tiles it 
 8. **Platform crossing** – four platforms over spikes, with a shooter waiting on the far side.
 9. **Goal** – one last cover wall, then the blue door between two pink posts. Its popup has no Continue button, since this is the last level.
 
+## Test level
+
+`levels/level_test.tscn` (205×42 tiles) is a short, beginner-friendly level for trying out new features. It is not part of the door chain: run the scene directly. Its door leads to Level 0. It is a linear, open-air, left-to-right run, and introduces one thing at a time with plenty of room between them:
+
+1. **Start** – the orange post and a flat stretch.
+2. **Step** – a 2-tile block to hop up onto and off again.
+3. **Small spike pit** – 2 tiles wide.
+4. **Patrolling enemy** – walking back and forth on the flat; jump over it.
+5. **Platform pit** – a wider spike pit crossed on a thin platform in the middle, with a 2-tile gap on each side.
+6. **Jumper** – alone on a long flat stretch, so there is room to dodge its leap.
+7. **Bounce pads** – two springs set into the ground in front of a 5-tile wall. Walking onto them gives a small bounce that can't reach the top; jumping onto them gives a big one that does. The far side of the plateau drops back to the ground.
+8. **Slope and block** – a slope up onto a raised block, then a 2-tile step down.
+9. **Shooter** – on the flat below the block. It fires every 1.2 s instead of the usual 0.6 s, so there is time to jump each shot before jumping over it.
+10. **Goal** – the blue door between two pink posts.
+
+### Bounce pads
+
+A bounce pad is a red-capped spring sunk into the floor, level with the ground, so you walk onto it like any other tile. Stepping onto it (or falling onto it after walking off a ledge) bounces you 1 tile up. Landing on it in a jump bounces you 6 tiles up, about twice a full jump. Pressing jump just before you land counts as a jump too, so while bouncing on a pad you can press jump to go high. A bounce is always the same height: holding or letting go of jump makes no difference.
+
+It is `bounce_pad/bounce_pad.tscn`; the two heights (in pixels, 8 per tile) are in the Inspector. To add one, dig a 1-tile-wide, 2-tile-deep notch in the floor for the spring to sit in, then place the pad at the top centre of the notch (x = tile × 8 + 4, y = the floor's top edge). Pads can sit side by side in a wider notch.
+
 ## Level design notes from the earlier levels
 
 The project used to have three open-air levels (`level_0`, `level_1`, `level_2`). They were removed when the current level replaced them. This section records what they looked like and the design rules they followed, which the current level reuses.

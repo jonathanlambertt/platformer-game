@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://bounce_pad/bounce_pad.gd" id="1_pad"]
+[ext_resource type="Texture2D" uid="uid://bh56mflk72vtg" path="res://assets/tilemap.png" id="2_tiles"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lid"]
+size = Vector2(8, 2)
+
+[node name="BouncePad" type="StaticBody2D" groups=["bounce_pad"]]
+collision_mask = 0
+script = ExtResource("1_pad")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tiles")
+centered = false
+offset = Vector2(-4, 0)
+region_enabled = true
+region_rect = Rect2(0, 12, 8, 16)
+
+[node name="Lid" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_lid")

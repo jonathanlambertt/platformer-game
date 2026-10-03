@@ -161,13 +161,14 @@ animation = &"idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1442960267]
 shape = SubResource("CapsuleShape2D_rerym")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=409419074]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=650980765]
 shape = SubResource("RectangleShape2D_hurt")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1023620630]
+process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0

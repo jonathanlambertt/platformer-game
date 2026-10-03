@@ -103,6 +103,7 @@ func fire() -> void:
 	# is cleared with everything else when the level restarts.
 	get_parent().add_child(projectile)
 	projectile.global_position = global_position
+	projectile.reset_physics_interpolation()
 
 
 func get_player_in_range() -> Node2D:
